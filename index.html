@@ -5,11 +5,17 @@
     <link rel="icon" type="image/svg+xml" href="/movies/assets/favicon.17e50649.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite App</title>
-    <script type="module" crossorigin src="/movies/assets/index.74913545.js"></script>
-    <link rel="stylesheet" href="/movies/assets/index.257b0845.css">
+    <script type="module" crossorigin src="/movies/assets/index.9bc03c45.js"></script>
+    <link rel="stylesheet" href="/movies/assets/index.46e1531c.css">
   </head>
   <body>
     
+    <header>
+      <nav>
+        <div class="logo">Movie Finder</div>
+        <div class="favorites">Favorites</div>
+      </nav>
+    </header>
     <section class="access">
       <section class="login">
         <h3>Login</h3>
@@ -20,55 +26,31 @@
           <p>Not registered? Register here</p>
         </form>
       </section>
-      <section class="register">
+      <section class="register" x-data="movies">
         <h3 class="access-heading">Register</h3>
-        <form action="/register" method="post" class="reg-form">
+        <form class="reg-form">
           <input type="text" name="firstname" id="firstname" placeholder="First Name">
           <input type="text" name="lastname" id="lastname" placeholder="Last Name">
           <input type="text" name="regusername" id="regusername" placeholder="Please enter username">
           <input type="password" name="regpassword" id="regpassword" placeholder="Please enter password">
-          <button>Register</button>
+          <button type="button">Register</button>
         </form>
       </section>
     </section>
-    <main>
+    <main x-data="movies" x-init="getMovies()">
       <section class="movies">
-        <div class="movie card">
-          <div class="original-title">The movie about wings</div>
-          <div class="image">
-            <img src="/movies/assets/chicken-1559579_1920.7c414d16.jpg" alt="wings movie" class="poster-path">
-          </div>
-          <div class="bottom-buttons">
-            <button class="favorite">Add to favorites</button>
-          </div>
-        </div>
-        <div class="movie card">
-          <div class="original-title">The movie about wings</div>
-          <div class="image">
-            <img src="/movies/assets/chicken-1559579_1920.7c414d16.jpg" alt="wings movie" class="poster-path">
-          </div>
-          <div class="bottom-buttons">
-            <button class="favorite">Add to favorites</button>
-          </div>
-        </div>
-        <div class="movie card">
-          <div class="original-title">The movie about wings</div>
-          <div class="image">
-            <img src="/movies/assets/chicken-1559579_1920.7c414d16.jpg" alt="wings movie" class="poster-path">
-          </div>
-          <div class="bottom-buttons">
-            <button class="favorite">Add to favorites</button>
-          </div>
-        </div>
-        <div class="movie card">
-          <div class="original-title">The movie about wings</div>
-          <div class="image">
-            <img src="/movies/assets/chicken-1559579_1920.7c414d16.jpg" alt="wings movie" class="poster-path">
-          </div>
-          <div class="bottom-buttons">
-            <button class="favorite">Add to favorites</button>
-          </div>
-        </div>
+          <template x-for="movie in movies">
+            <div class="movie card">
+              <div class="original-title" x-text="movie.original_title"></div>
+              <div class="image">
+                <img x-bind:src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" alt="">
+              </div>
+              <div class="buttons">
+                <button type="button">Overview</button>
+                <button type="button" x-bind:value="movie.id">Add to favorites</button>''
+              </div>
+            </div>
+          </template>       
       </section>
     </main>
   </body>
